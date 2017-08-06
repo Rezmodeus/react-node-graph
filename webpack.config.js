@@ -4,14 +4,14 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8080',
+    'webpack-dev-server/client?http://0.0.0.0:9999',
     'webpack/hot/only-dev-server',
-    './example/index.js'
+    './moulder/index.js'
   ],
   output: {
-    path: __dirname + '/example/',
+    path: __dirname + '/moulder/',
     filename: 'all.js',
-    publicPath: '/example'
+    publicPath: '/moulder'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
