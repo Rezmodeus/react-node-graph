@@ -11,10 +11,10 @@ export default class index extends React.Component {
 		super(props);
 
 		this.state = {
-			data : this.props.data,
-			source : [],
+			data: this.props.data,
+			source: [],
 			dragging: false
-		}
+		};
 
 		this.onMouseMove = this.onMouseMove.bind(this);
 		this.onMouseUp = this.onMouseUp.bind(this);
@@ -35,24 +35,24 @@ export default class index extends React.Component {
 	}
 
 	onMouseUp(e) {
-		this.setState({dragging:false, });
+		this.setState({dragging: false,});
 	}
 
 	onMouseMove(e) {
 		e.stopPropagation();
-  		e.preventDefault();
+		e.preventDefault();
 
-  		const {svgComponent: {refs: {svg}}} = this.refs;
+		const {svgComponent: {refs: {svg}}} = this.refs;
 
-  		//Get svg element position to substract offset top and left 
-  		const svgRect = svg.getBoundingClientRect();
+		//Get svg element position to substract offset top and left
+		const svgRect = svg.getBoundingClientRect();
 
 		this.setState({
-	      mousePos: {
-	        x: e.pageX - svgRect.left,
-	        y: e.pageY - svgRect.top
-	      }
-	    });
+			mousePos: {
+				x: e.pageX - svgRect.left,
+				y: e.pageY - svgRect.top
+			}
+		});
 	}
 
 	handleNodeStart(nid) {
@@ -69,11 +69,11 @@ export default class index extends React.Component {
 		d.nodes[index].x = pos.left;
 		d.nodes[index].y = pos.top;
 
-		this.setState({data : d});
+		this.setState({data: d});
 	}
 
 	handleStartConnector(nid, outputIndex) {
-		this.setState({dragging:true, source:[nid,outputIndex] });
+		this.setState({dragging: true, source: [nid, outputIndex]});
 	}
 
 	handleCompleteConnector(nid, inputIndex) {
@@ -87,7 +87,7 @@ export default class index extends React.Component {
 
 			this.props.onNewConnector(fromNode.nid, fromPinName, toNode.nid, toPinName);
 		}
-		this.setState({dragging:false});
+		this.setState({dragging: false});
 	}
 
 	handleRemoveConnector(connector) {
@@ -96,17 +96,17 @@ export default class index extends React.Component {
 		}
 	}
 
-  handleNodeSelect(nid) {
+	handleNodeSelect(nid) {
 		if (this.props.onNodeSelect) {
 			this.props.onNodeSelect(nid);
 		}
-  }
+	}
 
-  handleNodeDeselect(nid) {
-    if (this.props.onNodeDeselect) {
-      this.props.onNodeDeselect(nid);
-    }
-  }
+	handleNodeDeselect(nid) {
+		if (this.props.onNodeDeselect) {
+			this.props.onNodeDeselect(nid);
+		}
+	}
 
 	computePinIndexfromLabel(pins, pinLabel) {
 		let reval = 0;
@@ -137,7 +137,7 @@ export default class index extends React.Component {
 	render() {
 		let nodes = this.state.data.nodes;
 		let connectors = this.state.data.connections;
-    let { mousePos, dragging } = this.state;
+		let {mousePos, dragging} = this.state;
 
 		let i = 0;
 		let newConnector = null;
@@ -146,58 +146,64 @@ export default class index extends React.Component {
 
 			let sourceNode = this.getNodebyId(nodes, this.state.source[0]);
 			let connectorStart = computeOutOffsetByIndex(sourceNode.x, sourceNode.y, this.state.source[1]);
-			let connectorEnd = {x:this.state.mousePos.x, y:this.state.mousePos.y};
-					
-			newConnector = <Spline 
-              				 start={connectorStart}
-              				 end={connectorEnd}
-              			 />
+			let connectorEnd = {x: this.state.mousePos.x, y: this.state.mousePos.y};
+
+			newConnector = <Spline
+				start={connectorStart}
+				end={connectorEnd}
+			/>
 		}
 
 		let splineIndex = 0;
 
 		return (
-			<div className={dragging ? 'dragging' : ''} >
-				{nodes.map((node)=> {
-					return <Node 
-    								index={i++} 
-    								nid={node.nid}
-    								color="#000000"
-    								title={node.type}
-    								inputs={node.fields.in}
-    								outputs={node.fields.out}
-    								pos={{x : node.x, y: node.y}}
-    								key={node.nid} 
+			<div className={dragging ? 'dragging' : ''}>
+				{nodes.map((node) => {
+					return <Node
+						index={i++}
+						nid={node.nid}
+						color="#000000"
+						title={node.title || 'nada'}
+						inputs={node.fields.in}
+						outputs={node.fields.out}
+						pos={{x: node.x, y: node.y}}
+						key={node.nid}
 
-    								onNodeStart={(nid)=>this.handleNodeStart(nid)}
-    								onNodeStop={(nid, pos)=>this.handleNodeStop(nid, pos)}
-    								onNodeMove={(index,pos)=>this.handleNodeMove(index,pos)}
-    								
-    								onStartConnector={(nid, outputIndex)=>this.handleStartConnector(nid, outputIndex)}
-    								onCompleteConnector={(nid, inputIndex)=>this.handleCompleteConnector(nid, inputIndex)}
+						onNodeStart={(nid) => this.handleNodeStart(nid)}
+						onNodeStop={(nid, pos) => this.handleNodeStop(nid, pos)}
+						onNodeMove={(index, pos) => this.handleNodeMove(index, pos)}
 
-										onNodeSelect={(nid) => {this.handleNodeSelect(nid)}}
-										onNodeDeselect={(nid) => {this.handleNodeDeselect(nid)}}
-									/>
+						onStartConnector={(nid, outputIndex) => this.handleStartConnector(nid, outputIndex)}
+						onCompleteConnector={(nid, inputIndex) => this.handleCompleteConnector(nid, inputIndex)}
+
+						onNodeSelect={(nid) => {
+							this.handleNodeSelect(nid)
+						}}
+						onNodeDeselect={(nid) => {
+							this.handleNodeDeselect(nid)
+						}}
+					/>
 				})}
-				
-				{/* render our connectors */} 
+
+				{/* render our connectors */}
 
 				<SVGComponent height="100%" width="100%" ref="svgComponent">
 
-					{connectors.map((connector)=> {
-						let fromNode = this.getNodebyId(nodes,connector.from_node);
-						let toNode = this.getNodebyId(nodes,connector.to_node);
+					{connectors.map((connector) => {
+						let fromNode = this.getNodebyId(nodes, connector.from_node);
+						let toNode = this.getNodebyId(nodes, connector.to_node);
 
 						let splinestart = computeOutOffsetByIndex(fromNode.x, fromNode.y, this.computePinIndexfromLabel(fromNode.fields.out, connector.from));
 						let splineend = computeInOffsetByIndex(toNode.x, toNode.y, this.computePinIndexfromLabel(toNode.fields.in, connector.to));
 
-						return <Spline 
+						return <Spline
 							start={splinestart}
 							end={splineend}
 							key={splineIndex++}
 							mousePos={mousePos}
-							onRemove={() => {this.handleRemoveConnector(connector)}}
+							onRemove={() => {
+								this.handleRemoveConnector(connector)
+							}}
 						/>
 
 					})}
