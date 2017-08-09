@@ -60,7 +60,8 @@ body {
 	border-bottom: 1px solid #353535;
 
 	padding-top: 3px;
-    height: 23px;
+    /*height: 23px;*/
+    height: 100px;
 
     font-size: 13px;
     letter-spacing: 1px;
@@ -116,12 +117,14 @@ body {
 }
 
 .nodeInputWrapper {
-	width : 65%;
+	/*width : 65%;*/
+    width : 35%;
 	float: left;
 }
 
 .nodeOutputWrapper {
-	width : 35%;
+	/*width : 35%;*/
+    width : 65%;
 	float: right;
 	text-align: right;
 }

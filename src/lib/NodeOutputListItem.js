@@ -17,7 +17,7 @@ export default class NodeOutputListItem extends React.Component {
 	render() {
 		return (
 			<li onMouseDown={(e)=>this.onMouseDown(e)}>
-				<a href="#" onClick={(e)=>this.noop(e)}>{this.props.item.name} <i className="fa fa-circle-o"></i></a>
+				<a href="#" onClick={(e)=>this.noop(e)}>{this.props.item.str || this.props.item.name} <i className="fa fa-circle-o"></i></a>
 			</li>
 		);
 	}
