@@ -14,7 +14,10 @@ body {
     -moz-font-smoothing: antialiased;
 	background: url('gridtile.png');
 }
-
+.tooltip {
+    position: fixed;
+    z-index: 10021;
+}
 
 .node {
 	position: absolute; 
@@ -127,6 +130,8 @@ body {
     width : 65%;
 	float: right;
 	text-align: right;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 

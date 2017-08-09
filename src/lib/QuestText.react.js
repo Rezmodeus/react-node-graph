@@ -17,7 +17,7 @@ export default function QuestText(props) {
 
 			<section className={nodeClass} style={{zIndex: 10000}}>
 				<header className="node-header" style={{backgroundColor: color}}>
-					<span className="quest-text-header">{title}</span>
+					<span className="node-title">{title}</span>
 				</header>
 				<div className="node-content">
 					<NodeInputList items={inputs}

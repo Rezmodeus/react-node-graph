@@ -163,7 +163,7 @@ export default class index extends React.Component {
 						index={i++}
 						nid={node.nid}
 						color="#000000"
-						title={node.title || 'nada'}
+						title={node.type}
 						inputs={node.fields.in}
 						outputs={node.fields.out}
 						pos={{x: node.x, y: node.y}}

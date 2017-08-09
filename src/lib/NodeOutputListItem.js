@@ -1,24 +1,32 @@
 import React from 'react';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 export default class NodeOutputListItem extends React.Component {
-	
+
 	onMouseDown(e) {
 		e.stopPropagation();
-  		e.preventDefault();
+		e.preventDefault();
 
 		this.props.onMouseDown(this.props.index);
 	}
 
 	noop(e) {
 		e.stopPropagation();
-  		e.preventDefault();
+		e.preventDefault();
 	}
 
 	render() {
+		const str =this.props.item.str || this.props.item.name;
+		const tooltip = (
+			<Tooltip id="tooltip"><strong>{str}</strong>some description maybe</Tooltip>
+		);
 		return (
-			<li onMouseDown={(e)=>this.onMouseDown(e)}>
-				<a href="#" onClick={(e)=>this.noop(e)}>{this.props.item.str || this.props.item.name} <i className="fa fa-circle-o"></i></a>
-			</li>
+			<OverlayTrigger placement="top" overlay={tooltip}>
+				<li onMouseDown={(e) => this.onMouseDown(e)}>
+					<a href="#" onClick={(e) => this.noop(e)}>{str} <i
+						className="fa fa-circle-o"></i></a>
+				</li>
+			</OverlayTrigger>
 		);
 	}
 }
