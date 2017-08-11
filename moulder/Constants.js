@@ -1,0 +1,6 @@
+export default {
+	SET_GRAPH: 'SET_GRAPH',
+	SELECT_NODE: 'SELECT_NODE',
+	DESELECT_NODE: 'DESELECT_NODE',
+}
+
