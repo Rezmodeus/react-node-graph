@@ -10,51 +10,41 @@ export class App extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {...this.props.graph};//exampleGraph;
+		this.state = {startPos: {x: 0, y: 0}};
 	}
 
 	onNewConnector(fromNode, fromPin, toNode, toPin) {
-		let connections = [...this.state.connections, {
-			from_node: fromNode,
-			from: fromPin,
-			to_node: toNode,
-			to: toPin
-		}]
-
-		this.setState({connections: connections})
+		this.props.newConnector(fromNode, fromPin, toNode, toPin);
 	}
 
 	onRemoveConnector(connector) {
-		let connections = [...this.state.connections]
-		connections = connections.filter((connection) => {
-			return connection != connector
-		})
-
-		this.setState({connections: connections})
+		this.props.removeConnector(connector);
 	}
 
 	onNodeMove(nid, pos) {
-		console.log('end move : ' + nid, pos)
+		if (this.state.startPos.x !== pos.left || this.state.startPos.y !== pos.top) {
+			// only set pos if not double click, ie no move
+			this.props.setNodePos(nid, pos);
+		}
 	}
 
 	onNodeStartMove(nid) {
-		console.log('start move : ' + nid)
+		const node = this.props.graph.nodes.find(node => node.nid === nid);
+		this.setState({startPos: {x: node.x, y: node.y}});
 	}
 
 	handleNodeSelect(nid) {
-		console.log('node selected : ' + nid)
 		this.props.selectNode(nid);
 	}
 
 	handleNodeDeselect(nid) {
-		console.log('node deselected : ' + nid)
 		this.props.deSelectNode();
 	}
 
 	render() {
 		return (
 			<ReactNodeGraph
-				data={this.state}
+				data={this.props.graph}
 				onNodeMove={(nid, pos) => this.onNodeMove(nid, pos)}
 				onNodeStartMove={(nid) => this.onNodeStartMove(nid)}
 				onNewConnector={(n1, o, n2, i) => this.onNewConnector(n1, o, n2, i)}
@@ -80,7 +70,10 @@ function mapDispatchToProps(dispatch) {
 	return {
 		setGraph: (graph) => dispatch(Actions.setGraph(graph)),
 		selectNode: (nid) => dispatch(Actions.selectNode(nid)),
-		deSelectNode: () => dispatch(Actions.deSelectNode())
+		deSelectNode: () => dispatch(Actions.deSelectNode()),
+		newConnector: (fromNode, fromPin, toNode, toPin) => dispatch(Actions.newConnector(fromNode, fromPin, toNode, toPin)),
+		removeConnector: (connector) => dispatch(Actions.removeConnector(connector)),
+		setNodePos: (nid, pos) => dispatch(Actions.setNodePos(nid, pos))
 	};
 }
 
