@@ -44,6 +44,13 @@ export default {
 			type: Constants.REMOVE_CONNECTOR,
 			connector
 		}
+	},
+
+	addNewNode() {
+		return {
+			type: Constants.ADD_NEW_NODE,
+		}
+
 	}
 
 }

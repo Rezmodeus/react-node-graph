@@ -1,5 +1,8 @@
 export default {
 
+	selectedNode: -1,
+	nodeKey: 1000,
+
 	graph: {
 		"nodes": [
 			{

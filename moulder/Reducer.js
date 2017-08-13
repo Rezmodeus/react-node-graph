@@ -1,4 +1,5 @@
 import Constants from './Constants';
+import Records from './Records';
 
 export default function (state, action) {
 	let connections;
@@ -9,10 +10,18 @@ export default function (state, action) {
 				...state,
 				graph: action.graph
 			};
+
 		case Constants.SELECT_NODE:
-			return state;
+			return {
+				...state,
+				selectedNode: action.nid
+			};
+
 		case Constants.DESELECT_NODE:
-			return state;
+			return {
+				...state,
+				selectedNode: -1
+			};
 
 		case Constants.SET_NODE_POS:
 			nodes = state.graph.nodes.map(node => node.nid === action.nid
@@ -24,7 +33,6 @@ export default function (state, action) {
 				: node);
 			return {
 				...state,
-				nodeMoving: -1,
 				graph: {
 					...state.graph,
 					nodes
@@ -57,6 +65,22 @@ export default function (state, action) {
 				}
 			};
 
+		case Constants.ADD_NEW_NODE:
+			nodes = [...state.graph.nodes, {
+				...Records.questText,
+				nid: state.nodeKey,
+				type: 'new node',
+				contentType: 'questText'
+			}];
+
+			return {
+				...state,
+				nodeKey: state.nodeKey + 1,
+				graph: {
+					...state.graph,
+					nodes
+				}
+			};
 		default:
 			return state;
 
