@@ -19,7 +19,9 @@ body {
     left: 100px;
     top: 100px;
 }
-
+.edit-modal {
+    z-index: 10022;
+}
 .tooltip {
     position: fixed;
     z-index: 10021;

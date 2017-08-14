@@ -18,10 +18,10 @@ export default function (state, action) {
 			};
 
 		case Constants.DESELECT_NODE:
-			return {
-				...state,
-				selectedNode: -1
-			};
+			// return {
+			// 	...state,
+			// 	selectedNode: -1
+			// };
 
 		case Constants.SET_NODE_POS:
 			nodes = state.graph.nodes.map(node => node.nid === action.nid
