@@ -8,9 +8,16 @@ export default {
 		y: 0,
 		fields: {
 			in: [],
-			out: []
+			out: [
+				{name:'test', str:'some string'},
+				{name:'test2', str:'some other string'}
+			]
 		}
-	}
+	},
 
+	choice: {
+		name: '',
+		str: 'test'
+	}
 
 }

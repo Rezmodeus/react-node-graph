@@ -8,19 +8,58 @@ export class QuestTextModal extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {...this.props.nodeObj};
-		this.onChange = this.onChange.bind(this);
+		this.state = {
+			nodeObj: {...this.getClonedNode()}
+		};
+		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
+	}
+
+	componentWillMount() {
+		this.setState({
+			nodeObj: {...this.getClonedNode()}
+		});
+	}
+
+	getClonedNode(){
+		return  JSON.parse(JSON.stringify(this.props.nodes.find(node => node.nid === this.props.selectedNode)));
 	}
 
 	doSubmit(e) {
 		e.preventDefault();
 	}
 
-	onChange(prop, e) {
-		this.setState({[prop]: e.target.value});
+	onChangeChoiceText(index, e) {
+		const outs = [...this.state.nodeObj.fields.out];
+		outs[index].str = e.target.value;
+		this.setState({
+			nodeObj: {
+				...this.state.nodeObj,
+				fields: {
+					...this.state.nodeObj.fields,
+					out: [...outs]
+				}
+			}
+		});
+
 	}
 
 	render() {
+		console.log(this.state)
+		console.log(this.props)
+		const outFields = this.state.nodeObj.fields.out.map((out, index) =>
+			<FormGroup key={out.name} controlId="formInlineName">
+				<Col sm={10}>
+					<FormControl type="text" placeholder="Choice"
+					             onChange={(event) => this.onChangeChoiceText(index, event)}
+					             value={out.str}
+					/>
+				</Col>
+				<Col sm={2}>
+					<Button bsStyle="primary" bsSize="small" title="something"
+					        onClick={() => console.log('button press')}>something</Button>
+				</Col>
+			</FormGroup>
+		);
 		return (
 			<Modal className="edit-modal" show={true}
 			       onHide={() => this.props.hideModal()}>
@@ -29,25 +68,14 @@ export class QuestTextModal extends Component {
 				</Modal.Header>
 				<Modal.Body>
 					<form>
-						<h4>Text</h4>
 						<FormGroup controlId="formControlsTextarea">
-							<ControlLabel>Textarea</ControlLabel>
+							<ControlLabel>Text</ControlLabel>
 							<FormControl componentClass="textarea" placeholder="textarea"/>
 						</FormGroup>
 						<h4>Choices</h4>
-						<FormGroup controlId="formInlineName">
-							<Col sm={10}>
-								<FormControl type="text" placeholder="Choice"
-								             onChange={(event) => this.onChange('text', event)}
-								             value={'hej'}
-								/>
-							</Col>
-							<Col sm={2}>
-								<Button bsStyle="primary" bsSize="small" title="something"
-								        onClick={() => console.log('button press')}>something</Button>
-							</Col>
-						</FormGroup>
-
+						{outFields}
+						<Button block bsStyle="primary" bsSize="small" title="something"
+						        onClick={() => console.log('add choice')}>Add choice</Button>
 					</form>
 				</Modal.Body>
 				<Modal.Footer>
@@ -62,7 +90,7 @@ export class QuestTextModal extends Component {
 function mapStateToProps(state) {
 	return {
 		selectedNode: state.selectedNode,
-		nodeObj: state.graph.nodes[state.selectedNode]
+		nodes: state.graph.nodes
 	};
 }
 
