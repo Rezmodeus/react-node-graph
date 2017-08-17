@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from './Actions';
-import {Modal, Button, Form, FormControl, FormGroup, FieldGroup, ControlLabel, Col} from 'react-bootstrap';
+import Records from './Records';
+import {
+	Modal,
+	Button,
+	ButtonToolbar,
+	Form,
+	FormControl,
+	FormGroup,
+	FieldGroup,
+	ControlLabel,
+	Col
+} from 'react-bootstrap';
 
 
 export class QuestTextModal extends Component {
@@ -12,6 +23,7 @@ export class QuestTextModal extends Component {
 			nodeObj: {...this.getClonedNode()}
 		};
 		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
+		this.addChoice = this.addChoice.bind(this);
 	}
 
 	componentWillMount() {
@@ -20,12 +32,32 @@ export class QuestTextModal extends Component {
 		});
 	}
 
-	getClonedNode(){
-		return  JSON.parse(JSON.stringify(this.props.nodes.find(node => node.nid === this.props.selectedNode)));
+	getClonedNode() {
+		return JSON.parse(JSON.stringify(this.props.nodes.find(node => node.nid === this.props.selectedNode)));
 	}
 
 	doSubmit(e) {
 		e.preventDefault();
+	}
+
+
+	addChoice() {
+		const biggestKeyNr = this.state.nodeObj.fields.out.reduce((max, choice) => Math.max(max, parseInt(choice.name)), 0);
+		const name = (biggestKeyNr + 1) + '';
+		const choice = {
+			...Records.choice,
+			name
+		};
+		this.setState({
+			nodeObj: {
+				...this.state.nodeObj,
+				fields: {
+					...this.state.nodeObj.fields,
+					out: this.state.nodeObj.fields.out.concat([choice])
+				}
+			}
+		});
+
 	}
 
 	onChangeChoiceText(index, e) {
@@ -44,22 +76,29 @@ export class QuestTextModal extends Component {
 	}
 
 	render() {
-		console.log(this.state)
-		console.log(this.props)
-		const outFields = this.state.nodeObj.fields.out.map((out, index) =>
-			<FormGroup key={out.name} controlId="formInlineName">
-				<Col sm={10}>
+		// console.log(this.state.nodeObj.fields.out);
+		const outFields = this.state.nodeObj.fields.out.map((out, index) => {
+			const upEnabled = index > 0;
+			const downEnabled = index < this.state.nodeObj.fields.out.length - 1;
+			return (<FormGroup key={out.name} controlId="formInlineName">
+				<Col sm={8}>
 					<FormControl type="text" placeholder="Choice"
 					             onChange={(event) => this.onChangeChoiceText(index, event)}
 					             value={out.str}
 					/>
 				</Col>
-				<Col sm={2}>
-					<Button bsStyle="primary" bsSize="small" title="something"
-					        onClick={() => console.log('button press')}>something</Button>
+				<Col sm={4}>
+					<ButtonToolbar>
+						<Button disabled={!upEnabled} bsStyle="primary" bsSize="xsmall" title="up"
+						        onClick={() => console.log('button press')}>up</Button>
+						<Button disabled={!downEnabled} bsStyle="primary" bsSize="xsmall" title="something"
+						        onClick={() => console.log('button press')}>down</Button>
+						<Button bsStyle="danger" bsSize="xsmall" title="something"
+						        onClick={() => console.log('button press')}>Delete</Button>
+					</ButtonToolbar>
 				</Col>
-			</FormGroup>
-		);
+			</FormGroup>)
+		});
 		return (
 			<Modal className="edit-modal" show={true}
 			       onHide={() => this.props.hideModal()}>
@@ -75,7 +114,7 @@ export class QuestTextModal extends Component {
 						<h4>Choices</h4>
 						{outFields}
 						<Button block bsStyle="primary" bsSize="small" title="something"
-						        onClick={() => console.log('add choice')}>Add choice</Button>
+						        onClick={() => this.addChoice()}>Add choice</Button>
 					</form>
 				</Modal.Body>
 				<Modal.Footer>

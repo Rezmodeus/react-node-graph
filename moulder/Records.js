@@ -7,10 +7,10 @@ export default {
 		x: 0,
 		y: 0,
 		fields: {
-			in: [],
+			in: [{name: '->'}],
 			out: [
-				{name:'test', str:'some string'},
-				{name:'test2', str:'some other string'}
+				{name: '1', str: 'some string'},
+				{name: '2', str: 'some other string'}
 			]
 		}
 	},

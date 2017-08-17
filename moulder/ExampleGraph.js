@@ -3,7 +3,7 @@ export default {
 		{
 			"nid": 1,
 			"type": "WebGLRenderer",
-			"x": 1479,
+			"x": 479,
 			"y": 351,
 			"fields": {
 				"in": [{"name": "width"}, {"name": "height"}, {"name": "scene"}, {"name": "camera"}, {"name": "bg_color"}, {"name": "postfx"}, {"name": "shadowCameraNear"}, {"name": "shadowCameraFar"}, {"name": "shadowMapWidth"}, {"name": "shadowMapHeight"}, {"name": "shadowMapEnabled"}, {"name": "shadowMapSoft"}],
