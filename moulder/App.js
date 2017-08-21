@@ -17,6 +17,7 @@ export class App extends Component {
 		this.hideModal = this.hideModal.bind(this);
 		this.getFromLocalStorage = this.getFromLocalStorage.bind(this);
 		this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
+		this.clearState = this.clearState.bind(this);
 	}
 
 	showModal() {
@@ -27,9 +28,16 @@ export class App extends Component {
 		this.setState({showModal: false});
 	}
 
+	clearState(){
+		this.props.setState({graph:{nodes:[],connections:[]}});
+	}
+
 	getFromLocalStorage(){
-		const state = localStorage.getItem('saveData');
-		this.props.setState(JSON.parse(state));
+		this.clearState();
+		setTimeout(()=>{
+			const state = JSON.parse(localStorage.getItem('saveData'));
+			this.props.setState(state);
+		},100);
 	}
 
 	saveToLocalStorage(){
@@ -46,6 +54,8 @@ export class App extends Component {
 				        onClick={() => this.showModal()}>edit node</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.saveToLocalStorage()}>save</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
+				        onClick={() => this.clearState()}>clear</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.getFromLocalStorage()}>load</Button>
 				{this.state.showModal
