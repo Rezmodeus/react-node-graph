@@ -15,6 +15,8 @@ export class App extends Component {
 		};
 		this.showModal = this.showModal.bind(this);
 		this.hideModal = this.hideModal.bind(this);
+		this.getFromLocalStorage = this.getFromLocalStorage.bind(this);
+		this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
 	}
 
 	showModal() {
@@ -25,6 +27,14 @@ export class App extends Component {
 		this.setState({showModal: false});
 	}
 
+	getFromLocalStorage(){
+		const state = localStorage.getItem('saveData');
+		this.props.setState(JSON.parse(state));
+	}
+
+	saveToLocalStorage(){
+		localStorage.setItem('saveData',JSON.stringify(this.props.allState));
+	}
 
 	render() {
 
@@ -34,6 +44,10 @@ export class App extends Component {
 				        onClick={() => this.props.addNewNode()}>new QuestText</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.showModal()}>edit node</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
+				        onClick={() => this.saveToLocalStorage()}>save</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
+				        onClick={() => this.getFromLocalStorage()}>load</Button>
 				{this.state.showModal
 					? <NodeEdit hideModal={this.hideModal}/>
 					: null}
@@ -45,12 +59,14 @@ export class App extends Component {
 
 function mapStateToProps(state) {
 	return {
+		allState: state
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		addNewNode: () => dispatch(Actions.addNewNode())
+		addNewNode: () => dispatch(Actions.addNewNode()),
+		setState: (state) => dispatch(Actions.setState(state))
 	};
 }
 

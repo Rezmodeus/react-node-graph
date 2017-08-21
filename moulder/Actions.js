@@ -59,7 +59,14 @@ export default {
 			node
 		}
 
-	}
+	},
 
+	setState(state) {
+		return {
+			type: Constants.SET_STATE,
+			state
+		}
+
+	}
 }
 

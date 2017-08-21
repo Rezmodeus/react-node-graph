@@ -94,6 +94,9 @@ export default function (state, action) {
 				}
 			};
 
+		case Constants.SET_STATE:
+			return action.state;
+
 		default:
 			return state;
 
