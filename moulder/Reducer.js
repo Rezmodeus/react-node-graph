@@ -94,6 +94,16 @@ export default function (state, action) {
 				}
 			};
 
+		case Constants.DELETE_NODE:
+			nodes = state.graph.nodes.filter(node => node.nid !== action.nid);
+			return {
+				...state,
+				graph: {
+					...state.graph,
+					nodes
+				}
+			};
+
 		case Constants.SET_STATE:
 			return action.state;
 

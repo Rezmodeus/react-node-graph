@@ -21,13 +21,15 @@ export class QuestTextModal extends Component {
 		super(props);
 		this.state = {
 			nodeObj: {...this.getClonedNode()},
-			connectedChoices: this.props.connections.filter(con => con.from_node === this.props.selectedNode).map(con => con.from)
+			connectedChoices: this.props.connections.filter(con => con.from_node === this.props.selectedNode).map(con => con.from),
+			nodeConnected: this.props.connections.filter(con => con.to_node === this.props.selectedNode).length > 0,
 		};
 		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
 		this.addChoice = this.addChoice.bind(this);
 		this.hideModal = this.hideModal.bind(this);
 		this.moveChoice = this.moveChoice.bind(this);
 		this.deleteChoice = this.deleteChoice.bind(this);
+		this.deleteNode = this.deleteNode.bind(this);
 	}
 
 	componentWillMount() {
@@ -39,11 +41,6 @@ export class QuestTextModal extends Component {
 	getClonedNode() {
 		return JSON.parse(JSON.stringify(this.props.nodes.find(node => node.nid === this.props.selectedNode)));
 	}
-
-	doSubmit(e) {
-		e.preventDefault();
-	}
-
 
 	addChoice() {
 		const biggestKeyNr = this.state.nodeObj.fields.out.reduce((max, choice) => Math.max(max, parseInt(choice.name)), 0);
@@ -112,6 +109,11 @@ export class QuestTextModal extends Component {
 		});
 	}
 
+	deleteNode(){
+		this.props.deleteNode(this.props.selectedNode);
+		this.props.hideModal();
+	}
+
 	render() {
 		// console.log(this.state.nodeObj.fields.out);
 		const outFields = this.state.nodeObj.fields.out.map((out, index) => {
@@ -137,6 +139,8 @@ export class QuestTextModal extends Component {
 				</Col>
 			</FormGroup>)
 		});
+
+		const deleteEnabled = !this.state.nodeConnected && this.state.nodeObj.fields.out.length === 0;
 		return (
 			<Modal className="edit-modal" show={true}
 			       onHide={() => this.hideModal()}>
@@ -156,7 +160,8 @@ export class QuestTextModal extends Component {
 					</form>
 				</Modal.Body>
 				<Modal.Footer>
-					<h4>Footer</h4>
+					<Button disabled={!deleteEnabled} bsStyle="danger" bsSize="xsmall" title="something"
+					        onClick={() => this.deleteNode()}>Delete node</Button>
 				</Modal.Footer>
 
 			</Modal>
@@ -174,7 +179,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		updateNode: (node) => dispatch(Actions.updateNode(node))
+		updateNode: (node) => dispatch(Actions.updateNode(node)),
+		deleteNode: (nid) => dispatch(Actions.deleteNode(nid))
 	};
 }
 

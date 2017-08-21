@@ -50,7 +50,6 @@ export default {
 		return {
 			type: Constants.ADD_NEW_NODE,
 		}
-
 	},
 
 	updateNode(node) {
@@ -58,7 +57,13 @@ export default {
 			type: Constants.UPDATE_NODE,
 			node
 		}
+	},
 
+	deleteNode(nid) {
+		return {
+			type: Constants.DELETE_NODE,
+			nid
+		}
 	},
 
 	setState(state) {
@@ -66,7 +71,6 @@ export default {
 			type: Constants.SET_STATE,
 			state
 		}
-
 	}
 }
 
