@@ -20,12 +20,14 @@ export class QuestTextModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			nodeObj: {...this.getClonedNode()}
+			nodeObj: {...this.getClonedNode()},
+			connectedChoices: this.props.connections.filter(con => con.from_node === this.props.selectedNode).map(con => con.from)
 		};
 		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
 		this.addChoice = this.addChoice.bind(this);
 		this.hideModal = this.hideModal.bind(this);
 		this.moveChoice = this.moveChoice.bind(this);
+		this.deleteChoice = this.deleteChoice.bind(this);
 	}
 
 	componentWillMount() {
@@ -97,11 +99,25 @@ export class QuestTextModal extends Component {
 		});
 	}
 
+	deleteChoice(name) {
+		const outs = this.state.nodeObj.fields.out.filter(out => out.name !== name);
+		this.setState({
+			nodeObj: {
+				...this.state.nodeObj,
+				fields: {
+					...this.state.nodeObj.fields,
+					out: [...outs]
+				}
+			}
+		});
+	}
+
 	render() {
 		// console.log(this.state.nodeObj.fields.out);
 		const outFields = this.state.nodeObj.fields.out.map((out, index) => {
 			const upEnabled = index > 0;
 			const downEnabled = index < this.state.nodeObj.fields.out.length - 1;
+			const deleteEnabled = this.state.connectedChoices.indexOf(out.name) === -1;
 			return (<FormGroup key={out.name} controlId="formInlineName">
 				<Col sm={8}>
 					<FormControl type="text" placeholder="Choice"
@@ -115,8 +131,8 @@ export class QuestTextModal extends Component {
 						        onClick={() => this.moveChoice(index, -1)}>up</Button>
 						<Button disabled={!downEnabled} bsStyle="primary" bsSize="xsmall" title="something"
 						        onClick={() => this.moveChoice(index, 1)}>down</Button>
-						<Button bsStyle="danger" bsSize="xsmall" title="something"
-						        onClick={() => console.log('button press')}>Delete</Button>
+						<Button disabled={!deleteEnabled} bsStyle="danger" bsSize="xsmall" title="something"
+						        onClick={() => this.deleteChoice(out.name)}>Delete</Button>
 					</ButtonToolbar>
 				</Col>
 			</FormGroup>)
@@ -151,7 +167,8 @@ export class QuestTextModal extends Component {
 function mapStateToProps(state) {
 	return {
 		selectedNode: state.selectedNode,
-		nodes: state.graph.nodes
+		nodes: state.graph.nodes,
+		connections: state.graph.connections
 	};
 }
 
