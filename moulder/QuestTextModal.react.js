@@ -24,6 +24,8 @@ export class QuestTextModal extends Component {
 		};
 		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
 		this.addChoice = this.addChoice.bind(this);
+		this.hideModal = this.hideModal.bind(this);
+		this.moveChoice = this.moveChoice.bind(this);
 	}
 
 	componentWillMount() {
@@ -60,6 +62,11 @@ export class QuestTextModal extends Component {
 
 	}
 
+	hideModal() {
+		this.props.updateNode(this.state.nodeObj);
+		this.props.hideModal();
+	}
+
 	onChangeChoiceText(index, e) {
 		const outs = [...this.state.nodeObj.fields.out];
 		outs[index].str = e.target.value;
@@ -72,7 +79,22 @@ export class QuestTextModal extends Component {
 				}
 			}
 		});
+	}
 
+	moveChoice(index, direction) {
+		const outs = [...this.state.nodeObj.fields.out];
+		const moveTo = outs[index + direction];
+		outs[index + direction] = outs[index];
+		outs[index] = moveTo;
+		this.setState({
+			nodeObj: {
+				...this.state.nodeObj,
+				fields: {
+					...this.state.nodeObj.fields,
+					out: [...outs]
+				}
+			}
+		});
 	}
 
 	render() {
@@ -90,9 +112,9 @@ export class QuestTextModal extends Component {
 				<Col sm={4}>
 					<ButtonToolbar>
 						<Button disabled={!upEnabled} bsStyle="primary" bsSize="xsmall" title="up"
-						        onClick={() => console.log('button press')}>up</Button>
+						        onClick={() => this.moveChoice(index, -1)}>up</Button>
 						<Button disabled={!downEnabled} bsStyle="primary" bsSize="xsmall" title="something"
-						        onClick={() => console.log('button press')}>down</Button>
+						        onClick={() => this.moveChoice(index, 1)}>down</Button>
 						<Button bsStyle="danger" bsSize="xsmall" title="something"
 						        onClick={() => console.log('button press')}>Delete</Button>
 					</ButtonToolbar>
@@ -101,7 +123,7 @@ export class QuestTextModal extends Component {
 		});
 		return (
 			<Modal className="edit-modal" show={true}
-			       onHide={() => this.props.hideModal()}>
+			       onHide={() => this.hideModal()}>
 				<Modal.Header>
 					<Modal.Title>Edit node {this.props.selectedNode}</Modal.Title>
 				</Modal.Header>
@@ -134,7 +156,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return {};
+	return {
+		updateNode: (node) => dispatch(Actions.updateNode(node))
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestTextModal);

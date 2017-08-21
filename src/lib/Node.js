@@ -35,7 +35,7 @@ class Node extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		return this.state.selected !== nextState.selected;
+		return this.state.selected !== nextState.selected || nextProps.outputs !== this.props.outputs;
 	}
 
 	onStartConnector(index) {

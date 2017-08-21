@@ -81,6 +81,19 @@ export default function (state, action) {
 					nodes
 				}
 			};
+
+		case Constants.UPDATE_NODE:
+			nodes = state.graph.nodes.map(node => node.nid === action.node.nid
+				? {...action.node}
+				: {...node});
+			return {
+				...state,
+				graph: {
+					...state.graph,
+					nodes
+				}
+			};
+
 		default:
 			return state;
 

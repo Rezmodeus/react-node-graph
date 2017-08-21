@@ -51,6 +51,14 @@ export default {
 			type: Constants.ADD_NEW_NODE,
 		}
 
+	},
+
+	updateNode(node) {
+		return {
+			type: Constants.UPDATE_NODE,
+			node
+		}
+
 	}
 
 }
