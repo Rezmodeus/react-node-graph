@@ -4,7 +4,7 @@ import NodeOutputList from './NodeOutputList';
 var Draggable = require('react-draggable');
 
 export default function QuestText(props) {
-	const {selected, color, title, inputs, outputs, pos,} = props;
+	const {selected, color, title, inputs, outputs, pos, nid} = props;
 	const {onStartConnector, onCompleteConnector, handleDragStart, handleDragStop, handleDrag} = props;
 	const nodeClass = 'node' + (selected ? ' selected' : '');
 	return (
@@ -17,7 +17,7 @@ export default function QuestText(props) {
 
 			<section className={nodeClass} style={{zIndex: 10000}}>
 				<header className="node-header" style={{backgroundColor: color}}>
-					<span className="node-title">{title}</span>
+					<span className="node-title">{nid+':'+title}</span>
 				</header>
 				<div className="node-content">
 					<NodeInputList items={inputs}

@@ -68,6 +68,7 @@ class Node extends React.Component {
 
 		const payload = {
 			pos: this.props.pos,
+			nid: this.props.nid,
 			selected,
 			color: this.props.color,
 			title: this.props.title,
