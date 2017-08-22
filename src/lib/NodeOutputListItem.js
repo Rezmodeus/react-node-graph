@@ -18,7 +18,7 @@ export default class NodeOutputListItem extends React.Component {
 	render() {
 		const str =this.props.item.str || this.props.item.name;
 		const tooltip = (
-			<Tooltip id="tooltip"><strong>{str}</strong>some description maybe</Tooltip>
+			<Tooltip id="tooltip"><strong>{str}</strong></Tooltip>
 		);
 		return (
 			<OverlayTrigger placement="top" overlay={tooltip}>
