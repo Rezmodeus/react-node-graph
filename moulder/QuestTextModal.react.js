@@ -24,6 +24,7 @@ export class QuestTextModal extends Component {
 			connectedChoices: this.props.connections.filter(con => con.from_node === this.props.selectedNode).map(con => con.from),
 			nodeConnected: this.props.connections.filter(con => con.to_node === this.props.selectedNode).length > 0,
 		};
+		this.onChangeQuestText = this.onChangeQuestText.bind(this);
 		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
 		this.addChoice = this.addChoice.bind(this);
 		this.hideModal = this.hideModal.bind(this);
@@ -64,6 +65,17 @@ export class QuestTextModal extends Component {
 	hideModal() {
 		this.props.updateNode(this.state.nodeObj);
 		this.props.hideModal();
+	}
+
+
+	onChangeQuestText(e) {
+		this.setState({
+			nodeObj: {
+				...this.state.nodeObj,
+				type: e.target.value
+
+			}
+		});
 	}
 
 	onChangeChoiceText(index, e) {
@@ -109,7 +121,7 @@ export class QuestTextModal extends Component {
 		});
 	}
 
-	deleteNode(){
+	deleteNode() {
 		this.props.deleteNode(this.props.selectedNode);
 		this.props.hideModal();
 	}
@@ -151,7 +163,10 @@ export class QuestTextModal extends Component {
 					<form>
 						<FormGroup controlId="formControlsTextarea">
 							<ControlLabel>Text</ControlLabel>
-							<FormControl componentClass="textarea" placeholder="textarea"/>
+							<FormControl componentClass="textarea" placeholder="textarea"
+							             onChange={(event) => this.onChangeQuestText(event)}
+							             value={this.state.nodeObj.type}
+							/>
 						</FormGroup>
 						<h4>Choices</h4>
 						{outFields}
