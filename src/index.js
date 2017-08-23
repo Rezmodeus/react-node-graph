@@ -147,7 +147,9 @@ export default class index extends React.Component {
 	}
 
 	endPan() {
-		this.props.onEndPan(this.state.panPos);
+		if(this.state.panPos.x !== 0 || this.state.panPos.y !== 0){
+			this.props.onEndPan(this.state.panPos);
+		}
 		this.setState({isPanning: false, panPos: {x: 0, y: 0}, startPanPos: {x: 0, y: 0}});
 	}
 
