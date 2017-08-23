@@ -13,7 +13,10 @@ export default class index extends React.Component {
 		this.state = {
 			data: this.props.data,
 			source: [],
-			dragging: false
+			dragging: false,
+			isPanning: false,
+			startPanPos: {x: 0, y: 0},
+			panPos: {x: 0, y: 0}
 		};
 
 		this.onMouseMove = this.onMouseMove.bind(this);
@@ -133,6 +136,20 @@ export default class index extends React.Component {
 		}
 	}
 
+	startPan(e) {
+		this.setState({isPanning: true, startPanPos: {x: e.screenX, y: e.screenY}});
+	}
+
+	onPanning(e) {
+		if (this.state.isPanning) {
+			this.setState({panPos: {x: e.screenX - this.state.startPanPos.x, y: e.screenY - this.state.startPanPos.y}});
+		}
+	}
+
+	endPan() {
+		this.props.onEndPan(this.state.panPos);
+		this.setState({isPanning: false, panPos: {x: 0, y: 0}, startPanPos: {x: 0, y: 0}});
+	}
 
 	render() {
 		let nodes = this.state.data.nodes;
@@ -187,14 +204,21 @@ export default class index extends React.Component {
 
 				{/* render our connectors */}
 
-				<SVGComponent height="100%" width="100%" ref="svgComponent">
+				<SVGComponent height="100%" width="100%" ref="svgComponent"
+				              onMouseDown={(e) => this.startPan(e)}
+				              onMouseMove={(e) => this.onPanning(e)}
+				              onMouseUp={(e) => this.endPan(e)}
+				>
 
 					{connectors.map((connector) => {
 						let fromNode = this.getNodebyId(nodes, connector.from_node);
 						let toNode = this.getNodebyId(nodes, connector.to_node);
-
-						let splinestart = computeOutOffsetByIndex(fromNode.x, fromNode.y, this.computePinIndexfromLabel(fromNode.fields.out, connector.from));
-						let splineend = computeInOffsetByIndex(toNode.x, toNode.y, this.computePinIndexfromLabel(toNode.fields.in, connector.to));
+						const fx = fromNode.x + this.state.panPos.x;
+						const fy = fromNode.y + this.state.panPos.y;
+						const tx = toNode.x + this.state.panPos.x;
+						const ty = toNode.y + this.state.panPos.y;
+						let splinestart = computeOutOffsetByIndex(fx, fy, this.computePinIndexfromLabel(fromNode.fields.out, connector.from));
+						let splineend = computeInOffsetByIndex(tx, ty, this.computePinIndexfromLabel(toNode.fields.in, connector.to));
 
 						return <Spline
 							start={splinestart}

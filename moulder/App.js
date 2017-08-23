@@ -18,6 +18,8 @@ export class App extends Component {
 		this.getFromLocalStorage = this.getFromLocalStorage.bind(this);
 		this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
 		this.clearState = this.clearState.bind(this);
+		this.moronicUpdate = this.moronicUpdate.bind(this);
+		this.onEndPan = this.onEndPan.bind(this);
 	}
 
 	showModal() {
@@ -28,23 +30,42 @@ export class App extends Component {
 		this.setState({showModal: false});
 	}
 
-	clearState(){
-		this.props.setState({graph:{nodes:[],connections:[]}});
+	clearState() {
+		this.props.setState({graph: {nodes: [], connections: []}});
 	}
 
-	getFromLocalStorage(){
+	getFromLocalStorage() {
 		this.clearState();
-		setTimeout(()=>{
+		setTimeout(() => {
 			const state = JSON.parse(localStorage.getItem('saveData'));
 			this.props.setState(state);
-		},100);
+		}, 100);
 	}
 
-	saveToLocalStorage(){
-		localStorage.setItem('saveData',JSON.stringify(this.props.allState));
+	saveToLocalStorage() {
+		localStorage.setItem('saveData', JSON.stringify(this.props.allState));
 	}
+
+	moronicUpdate() {
+		setTimeout(() => {
+			const prevState = this.props.allState;
+			this.clearState();
+			setTimeout(() => {
+				this.props.setState(prevState);
+			}, 20);
+		}, 20);
+	}
+
+	onEndPan(pos) {
+		this.props.moveAllNodes(pos);
+		this.moronicUpdate();
+	}
+
 
 	render() {
+		const nodeGraphPayload = {
+			onEndPan: this.onEndPan
+		};
 
 		return (
 			<div>
@@ -61,7 +82,7 @@ export class App extends Component {
 				{this.state.showModal
 					? <NodeEdit hideModal={this.hideModal}/>
 					: null}
-				<NodeGraph/>
+				<NodeGraph {...nodeGraphPayload}/>
 			</div>
 		);
 	}
@@ -76,7 +97,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return {
 		addNewNode: () => dispatch(Actions.addNewNode()),
-		setState: (state) => dispatch(Actions.setState(state))
+		setState: (state) => dispatch(Actions.setState(state)),
+		moveAllNodes: (pos) => dispatch(Actions.moveAllNodes(pos))
 	};
 }
 

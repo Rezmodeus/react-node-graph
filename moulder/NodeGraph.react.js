@@ -41,6 +41,11 @@ export class NodeGraph extends Component {
 		this.props.deSelectNode();
 	}
 
+	onEndPan(panPos){
+		this.props.onEndPan(panPos);
+
+	}
+
 	render() {
 		return (
 			<ReactNodeGraph
@@ -49,6 +54,7 @@ export class NodeGraph extends Component {
 				onNodeStartMove={(nid) => this.onNodeStartMove(nid)}
 				onNewConnector={(n1, o, n2, i) => this.onNewConnector(n1, o, n2, i)}
 				onRemoveConnector={(connector) => this.onRemoveConnector(connector)}
+				onEndPan={(panPos) => this.onEndPan(panPos)}
 				onNodeSelect={(nid) => {
 					this.handleNodeSelect(nid)
 				}}

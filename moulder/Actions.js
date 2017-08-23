@@ -71,6 +71,14 @@ export default {
 			type: Constants.SET_STATE,
 			state
 		}
+	},
+
+	moveAllNodes(pos) {
+		return {
+			type: Constants.MOVE_ALL_NODES,
+			pos
+		}
+
 	}
 }
 
