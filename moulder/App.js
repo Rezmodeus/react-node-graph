@@ -67,10 +67,17 @@ export class App extends Component {
 			onEndPan: this.onEndPan
 		};
 
+		const nodeEditPayload = {
+			selected: this.props.nodes.find(node => node.nid === this.props.selectedNode),
+			hideModal: this.hideModal
+		};
+
 		return (
 			<div>
 				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode()}>new QuestText</Button>
+				        onClick={() => this.props.addNewNode('questText')}>new QuestText</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+				        onClick={() => this.props.addNewNode('response')}>new Response</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.showModal()}>edit node</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
@@ -80,7 +87,7 @@ export class App extends Component {
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.getFromLocalStorage()}>load</Button>
 				{this.state.showModal
-					? <NodeEdit hideModal={this.hideModal}/>
+					? <NodeEdit {...nodeEditPayload}/>
 					: null}
 				<NodeGraph {...nodeGraphPayload}/>
 			</div>
@@ -90,13 +97,15 @@ export class App extends Component {
 
 function mapStateToProps(state) {
 	return {
+		nodes: state.graph.nodes,
+		selectedNode: state.selectedNode,
 		allState: state
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		addNewNode: () => dispatch(Actions.addNewNode()),
+		addNewNode: (nodeType) => dispatch(Actions.addNewNode(nodeType)),
 		setState: (state) => dispatch(Actions.setState(state)),
 		moveAllNodes: (pos) => dispatch(Actions.moveAllNodes(pos))
 	};

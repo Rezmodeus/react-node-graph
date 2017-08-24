@@ -12,11 +12,7 @@ const emptyGraph = {
 			'fields': {
 				'in': [],
 				'out': [
-					{name: 'prolog', str: 'prolog'},
-					{name: 'started', str: 'started'},
-					{name: 'end', str: 'end'},
-					{name: 'failure', str: 'failure'},
-					{name: 'reward', str: 'reward'},
+					{name: 'start', str: 'start'}
 				]
 			}
 		}

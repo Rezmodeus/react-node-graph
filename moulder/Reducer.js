@@ -67,10 +67,10 @@ export default function (state, action) {
 
 		case Constants.ADD_NEW_NODE:
 			nodes = [...state.graph.nodes, {
-				...Records.questText,
+				...Records[action.nodeType],
 				nid: state.nodeKey,
 				type: 'new node',
-				contentType: 'questText'
+				contentType: action.nodeType
 			}];
 
 			return {

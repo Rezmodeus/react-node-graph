@@ -46,9 +46,10 @@ export default {
 		}
 	},
 
-	addNewNode() {
+	addNewNode(nodeType) {
 		return {
 			type: Constants.ADD_NEW_NODE,
+			nodeType
 		}
 	},
 
