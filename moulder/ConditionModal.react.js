@@ -11,11 +11,12 @@ import {
 	FormGroup,
 	FieldGroup,
 	ControlLabel,
-	Col
+	Col,
+	label
 } from 'react-bootstrap';
 
 
-export class ResponseModal extends Component {
+export class ConditionModal extends Component {
 
 	constructor(props) {
 		super(props);
@@ -25,6 +26,7 @@ export class ResponseModal extends Component {
 			nodeConnected: this.props.connections.filter(con => con.to_node === this.props.selectedNode).length > 0,
 		};
 		this.onChangeQuestText = this.onChangeQuestText.bind(this);
+		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
 		this.hideModal = this.hideModal.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
 	}
@@ -54,19 +56,48 @@ export class ResponseModal extends Component {
 		});
 	}
 
+	onChangeChoiceText(index, e) {
+		const outs = [...this.state.nodeObj.fields.out];
+		outs[index].str = e.target.value;
+		this.setState({
+			nodeObj: {
+				...this.state.nodeObj,
+				fields: {
+					...this.state.nodeObj.fields,
+					out: [...outs]
+				}
+			}
+		});
+	}
+
 	deleteNode() {
 		this.props.deleteNode(this.props.selectedNode);
 		this.props.hideModal();
 	}
 
 	render() {
+		// console.log(this.state.nodeObj.fields.out);
+		const outFields = this.state.nodeObj.fields.out.map((out, index) => {
+			if(index === 0){
+			return (<FormGroup key={out.name} controlId="formInlineName">
+				<Col sm={8}>
+					<FormControl type="text" placeholder="Choice"
+					             onChange={(event) => this.onChangeChoiceText(index, event)}
+					             value={out.str}
+					/>
+				</Col>
+			</FormGroup>)
+			} else {
+				return <div key={out.name}>hej</div>
+			}
+		});
 
 		const deleteEnabled = !this.state.hasConnectedChoices && !this.state.nodeConnected;
 		return (
 			<Modal className="edit-modal" show={true}
 			       onHide={() => this.hideModal()}>
 				<Modal.Header>
-					<Modal.Title>Response node {this.props.selectedNode}</Modal.Title>
+					<Modal.Title>Condition node {this.props.selectedNode}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<form>
@@ -77,6 +108,8 @@ export class ResponseModal extends Component {
 							             value={this.state.nodeObj.type}
 							/>
 						</FormGroup>
+						<h4>Choices</h4>
+						{outFields}
 					</form>
 				</Modal.Body>
 				<Modal.Footer>
@@ -104,7 +137,7 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResponseModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ConditionModal);
 
 
 

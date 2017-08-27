@@ -78,6 +78,8 @@ export class App extends Component {
 				        onClick={() => this.props.addNewNode('questText')}>new QuestText</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
 				        onClick={() => this.props.addNewNode('response')}>new Response</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+				        onClick={() => this.props.addNewNode('condition')}>new Condition</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.showModal()}>edit node</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"

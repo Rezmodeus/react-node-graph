@@ -157,7 +157,7 @@ export class QuestTextModal extends Component {
 			<Modal className="edit-modal" show={true}
 			       onHide={() => this.hideModal()}>
 				<Modal.Header>
-					<Modal.Title>Edit node {this.props.selectedNode}</Modal.Title>
+					<Modal.Title>QuestText node {this.props.selectedNode}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<form>
