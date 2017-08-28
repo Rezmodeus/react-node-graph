@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from './Actions';
 import Records from './Records';
+import Lib from './Lib'
 import {
 	Modal,
 	Button,
@@ -60,6 +61,7 @@ export class ResponseModal extends Component {
 	}
 
 	render() {
+		const parsedText = Lib.parseText(this.props.nodes,this.state.nodeObj.type);
 
 		const deleteEnabled = !this.state.hasConnectedChoices && !this.state.nodeConnected;
 		return (
@@ -71,7 +73,7 @@ export class ResponseModal extends Component {
 				<Modal.Body>
 					<form>
 						<FormGroup controlId="formControlsTextarea">
-							<ControlLabel>Text</ControlLabel>
+							<ControlLabel>Text: {parsedText}</ControlLabel>
 							<FormControl componentClass="textarea" placeholder="textarea"
 							             onChange={(event) => this.onChangeQuestText(event)}
 							             value={this.state.nodeObj.type}
