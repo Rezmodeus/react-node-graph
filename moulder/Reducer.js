@@ -66,10 +66,15 @@ export default function (state, action) {
 			};
 
 		case Constants.ADD_NEW_NODE:
+			const newNode = Records[action.nodeType];
 			nodes = [...state.graph.nodes, {
-				...Records[action.nodeType],
+				...newNode,
 				nid: state.nodeKey,
 				type: 'new node',
+				data: {
+					...newNode.data,
+					text: 'new node'
+				},
 				contentType: action.nodeType
 			}];
 

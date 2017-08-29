@@ -4,6 +4,9 @@ export default {
 		nid: 0,
 		type: '',
 		contentType: '',
+		data:{
+			text:''
+		},
 		x: 0,
 		y: 0,
 		fields: {
@@ -19,6 +22,9 @@ export default {
 		nid: 0,
 		type: '',
 		contentType: '',
+		data:{
+			text:''
+		},
 		x: 0,
 		y: 0,
 		fields: {
@@ -31,6 +37,9 @@ export default {
 		nid: 0,
 		type: '',
 		contentType: '',
+		data:{
+			text:''
+		},
 		x: 0,
 		y: 0,
 		fields: {

@@ -7,8 +7,8 @@ const emptyGraph = {
 			'nid': 1,
 			'type': 'Start',
 			'contentType': 'quest',
-			'x': 400,
-			'y': 300,
+			'x': 100,
+			'y': 100,
 			'fields': {
 				'in': [],
 				'out': [

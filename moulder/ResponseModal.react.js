@@ -25,7 +25,7 @@ export class ResponseModal extends Component {
 			hasConnectedChoices: this.props.connections.filter(con => con.from_node === this.props.selectedNode).length > 0,
 			nodeConnected: this.props.connections.filter(con => con.to_node === this.props.selectedNode).length > 0,
 		};
-		this.onChangeQuestText = this.onChangeQuestText.bind(this);
+		this.onChangeMainText = this.onChangeMainText.bind(this);
 		this.hideModal = this.hideModal.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
 	}
@@ -45,14 +45,8 @@ export class ResponseModal extends Component {
 		this.props.hideModal();
 	}
 
-	onChangeQuestText(e) {
-		this.setState({
-			nodeObj: {
-				...this.state.nodeObj,
-				type: e.target.value
-
-			}
-		});
+	onChangeMainText(e) {
+		this.setState({nodeObj: Lib.setMainText(this.props.nodes, this.state.nodeObj, e.target.value)});
 	}
 
 	deleteNode() {
@@ -61,8 +55,6 @@ export class ResponseModal extends Component {
 	}
 
 	render() {
-		const parsedText = Lib.parseText(this.props.nodes,this.state.nodeObj.type);
-
 		const deleteEnabled = !this.state.hasConnectedChoices && !this.state.nodeConnected;
 		return (
 			<Modal className="edit-modal" show={true}
@@ -73,10 +65,10 @@ export class ResponseModal extends Component {
 				<Modal.Body>
 					<form>
 						<FormGroup controlId="formControlsTextarea">
-							<ControlLabel>Text: {parsedText}</ControlLabel>
+							<ControlLabel>Text: {this.state.nodeObj.type}</ControlLabel>
 							<FormControl componentClass="textarea" placeholder="textarea"
-							             onChange={(event) => this.onChangeQuestText(event)}
-							             value={this.state.nodeObj.type}
+							             onChange={(event) => this.onChangeMainText(event)}
+							             value={this.state.nodeObj.data.text}
 							/>
 						</FormGroup>
 					</form>
