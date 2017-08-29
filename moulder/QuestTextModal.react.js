@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from './Actions';
 import Records from './Records';
+import Lib from './Lib'
 import {
 	Modal,
 	Button,
@@ -24,7 +25,7 @@ export class QuestTextModal extends Component {
 			connectedChoices: this.props.connections.filter(con => con.from_node === this.props.selectedNode).map(con => con.from),
 			nodeConnected: this.props.connections.filter(con => con.to_node === this.props.selectedNode).length > 0,
 		};
-		this.onChangeQuestText = this.onChangeQuestText.bind(this);
+		this.onChangeMainText = this.onChangeMainText.bind(this);
 		this.onChangeChoiceText = this.onChangeChoiceText.bind(this);
 		this.addChoice = this.addChoice.bind(this);
 		this.hideModal = this.hideModal.bind(this);
@@ -68,14 +69,8 @@ export class QuestTextModal extends Component {
 	}
 
 
-	onChangeQuestText(e) {
-		this.setState({
-			nodeObj: {
-				...this.state.nodeObj,
-				type: e.target.value
-
-			}
-		});
+	onChangeMainText(e) {
+		this.setState({nodeObj: Lib.setMainText(this.props.nodes, this.state.nodeObj, e.target.value)});
 	}
 
 	onChangeChoiceText(index, e) {
@@ -162,10 +157,10 @@ export class QuestTextModal extends Component {
 				<Modal.Body>
 					<form>
 						<FormGroup controlId="formControlsTextarea">
-							<ControlLabel>Text</ControlLabel>
+							<ControlLabel>Text: {this.state.nodeObj.type}</ControlLabel>
 							<FormControl componentClass="textarea" placeholder="textarea"
-							             onChange={(event) => this.onChangeQuestText(event)}
-							             value={this.state.nodeObj.type}
+							             onChange={(event) => this.onChangeMainText(event)}
+							             value={this.state.nodeObj.data.text}
 							/>
 						</FormGroup>
 						<h4>Choices</h4>

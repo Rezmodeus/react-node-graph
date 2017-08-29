@@ -18,6 +18,7 @@ export default {
 		}
 		return newText;
 	},
+
 	setMainText(nodes, nodeObj, text) {
 		return {
 			...nodeObj,

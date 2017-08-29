@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from './Actions';
-import Records from './Records';
 import Lib from './Lib'
 import {
 	Modal,
