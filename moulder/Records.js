@@ -4,8 +4,8 @@ export default {
 		nid: 0,
 		type: '',
 		contentType: '',
-		data:{
-			text:''
+		data: {
+			text: ''
 		},
 		x: 0,
 		y: 0,
@@ -22,8 +22,8 @@ export default {
 		nid: 0,
 		type: '',
 		contentType: '',
-		data:{
-			text:''
+		data: {
+			text: ''
 		},
 		x: 0,
 		y: 0,
@@ -37,8 +37,8 @@ export default {
 		nid: 0,
 		type: '',
 		contentType: '',
-		data:{
-			text:''
+		data: {
+			text: ''
 		},
 		x: 0,
 		y: 0,
@@ -48,6 +48,22 @@ export default {
 				{name: '1', str: 'true value'},
 				{name: '2', str: 'false'}
 			]
+		}
+	},
+
+	entity: {
+		nid: 0,
+		type: '',
+		contentType: '',
+		data: {
+			name: '',
+			type: '',
+		},
+		x: 0,
+		y: 0,
+		fields: {
+			in: [],
+			out: []
 		}
 	},
 

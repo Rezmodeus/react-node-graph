@@ -11,10 +11,22 @@ export default {
 		let newText = str;
 		if (a.length > 1) {
 			const nid = parseInt(a[0]);
-			const node = nodes.find(n => n.nid === nid) || {};
-			if (node[a[1]]) {
-				newText = node[a[1]];
+			const node = nodes.find(n => n.nid === nid);
+			if (node) {
+				if (node.data) {
+					if (node.data[a[1]]) {
+						newText = node.data[a[1]];
+					} else {
+						newText = '{missing param}';
+					}
+				} else {
+					newText = '{missing data}';
+				}
+			} else {
+				newText = '{missing node}';
 			}
+		} else {
+			newText = '{not enough params}';
 		}
 		return newText;
 	},
