@@ -73,7 +73,7 @@ export default function (state, action) {
 				type: 'new node',
 				data: {
 					...newNode.data,
-					text: 'new node'
+					//text: 'new node'
 				},
 				contentType: action.nodeType
 			}];

@@ -67,6 +67,54 @@ export default {
 		}
 	},
 
+	npc: {
+		nid: 0,
+		type: '',
+		contentType: '',
+		data: {
+			name: '',
+			type: '',
+		},
+		x: 0,
+		y: 0,
+		fields: {
+			in: [],
+			out: []
+		}
+	},
+
+	item: {
+		nid: 0,
+		type: '',
+		contentType: '',
+		data: {
+			name: '',
+			type: '',
+		},
+		x: 0,
+		y: 0,
+		fields: {
+			in: [],
+			out: []
+		}
+	},
+
+	location: {
+		nid: 0,
+		type: '',
+		contentType: '',
+		data: {
+			name: '',
+			type: '',
+		},
+		x: 0,
+		y: 0,
+		fields: {
+			in: [],
+			out: []
+		}
+	},
+
 	choice: {
 		name: '',
 		str: 'test'

@@ -83,6 +83,12 @@ export class App extends Component {
 				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
 				        onClick={() => this.props.addNewNode('entity')}>new Entity</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+				        onClick={() => this.props.addNewNode('npc')}>new Npc</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+				        onClick={() => this.props.addNewNode('item')}>new Item</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+				        onClick={() => this.props.addNewNode('location')}>new Location</Button>
+				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
 				        onClick={() => this.showModal()}>edit node</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.saveToLocalStorage()}>save</Button>

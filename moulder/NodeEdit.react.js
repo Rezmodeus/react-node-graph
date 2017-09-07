@@ -25,6 +25,15 @@ export default class NodeEdit extends Component {
 			case 'entity':
 				modal = <EntityModal {...this.props}/>;
 				break;
+			case 'npc':
+				modal = <EntityModal {...this.props}/>;
+				break;
+			case 'item':
+				modal = <EntityModal {...this.props}/>;
+				break;
+			case 'location':
+				modal = <EntityModal {...this.props}/>;
+				break;
 			default:
 				break;
 

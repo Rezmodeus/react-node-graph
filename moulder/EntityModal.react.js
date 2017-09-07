@@ -45,7 +45,8 @@ export class EntityModal extends Component {
 	}
 
 	onChangeData(key, e) {
-		const nodeObjUpdated = Lib.setMainText(this.props.nodes, this.state.nodeObj, this.state.nodeObj.data.text);
+		// const nodeObjUpdated = Lib.setMainText(this.props.nodes, this.state.nodeObj, this.state.nodeObj.data.text);
+		const nodeObjUpdated = {...this.state.nodeObj};
 		const data = {...this.state.nodeObj.data};
 		data[key] = e.target.value;
 		this.setState({
