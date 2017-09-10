@@ -49,10 +49,12 @@ export class EntityModal extends Component {
 		const nodeObjUpdated = {...this.state.nodeObj};
 		const data = {...this.state.nodeObj.data};
 		data[key] = e.target.value;
+		const newText = key === 'name' ? e.target.value : nodeObjUpdated.type;
 		this.setState({
 			nodeObj: {
 				...nodeObjUpdated,
 				data: data,
+				type: newText
 			}
 		});
 	}
@@ -71,7 +73,7 @@ export class EntityModal extends Component {
 					{key + ':'}
 				</Col>
 				<Col sm={8}>
-					<FormControl type="text" placeholder="data"
+					<FormControl type="text" placeholder="nothing"
 					             onChange={(event) => this.onChangeData(key, event)}
 					             value={data[key]}
 					/>

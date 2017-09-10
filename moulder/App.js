@@ -88,7 +88,7 @@ export class App extends Component {
 				        onClick={() => this.props.addNewNode('item')}>new Item</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
 				        onClick={() => this.props.addNewNode('location')}>new Location</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+				<Button bsStyle="success" bsSize="xsmall" title="addNewNode"
 				        onClick={() => this.showModal()}>edit node</Button>
 				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 				        onClick={() => this.saveToLocalStorage()}>save</Button>

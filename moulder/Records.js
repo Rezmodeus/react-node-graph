@@ -73,7 +73,7 @@ export default {
 		contentType: '',
 		data: {
 			name: '',
-			type: '',
+			type: 'npc',
 		},
 		x: 0,
 		y: 0,
@@ -89,7 +89,7 @@ export default {
 		contentType: '',
 		data: {
 			name: '',
-			type: '',
+			type: 'item',
 		},
 		x: 0,
 		y: 0,
@@ -105,7 +105,7 @@ export default {
 		contentType: '',
 		data: {
 			name: '',
-			type: '',
+			type: 'location',
 		},
 		x: 0,
 		y: 0,

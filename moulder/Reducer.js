@@ -70,7 +70,7 @@ export default function (state, action) {
 			nodes = [...state.graph.nodes, {
 				...newNode,
 				nid: state.nodeKey,
-				type: 'new node',
+				type: action.nodeType,
 				data: {
 					...newNode.data,
 					//text: 'new node'
