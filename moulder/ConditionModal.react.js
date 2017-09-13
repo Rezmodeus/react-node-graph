@@ -51,17 +51,7 @@ export class ConditionModal extends Component {
 	}
 
 	onChangeChoiceText(index, e) {
-		const outs = [...this.state.nodeObj.fields.out];
-		outs[index].str = e.target.value;
-		this.setState({
-			nodeObj: {
-				...this.state.nodeObj,
-				fields: {
-					...this.state.nodeObj.fields,
-					out: [...outs]
-				}
-			}
-		});
+		this.setState({nodeObj: Lib.setOutText(this.props.nodes, this.state.nodeObj, index, e.target.value)});
 	}
 
 	deleteNode() {
@@ -72,17 +62,18 @@ export class ConditionModal extends Component {
 	render() {
 		// console.log(this.state.nodeObj.fields.out);
 		const outFields = this.state.nodeObj.fields.out.map((out, index) => {
-			if(index === 0){
-			return (<FormGroup key={out.name} controlId="formInlineName">
-				<Col sm={8}>
-					<FormControl type="text" placeholder="Choice"
-					             onChange={(event) => this.onChangeChoiceText(index, event)}
-					             value={out.str}
-					/>
-				</Col>
-			</FormGroup>)
+			if (index === 0) {
+				return (<FormGroup key={out.name} controlId="formInlineName">
+					<Col sm={8}>
+						<ControlLabel>Text: {out.str}</ControlLabel>
+						<FormControl type="text" placeholder="Choice"
+						             onChange={(event) => this.onChangeChoiceText(index, event)}
+						             value={out.strRaw}
+						/>
+					</Col>
+				</FormGroup>)
 			} else {
-				return <div key={out.name}>hej</div>
+				return null;
 			}
 		});
 

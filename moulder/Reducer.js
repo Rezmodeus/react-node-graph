@@ -1,5 +1,6 @@
 import Constants from './Constants';
 import Records from './Records';
+import Lib from './Lib';
 
 export default function (state, action) {
 	let connections;
@@ -70,6 +71,8 @@ export default function (state, action) {
 			nodes = [...state.graph.nodes, {
 				...newNode,
 				nid: state.nodeKey,
+				x: 500,
+				y: 100,
 				type: action.nodeType,
 				data: {
 					...newNode.data,
@@ -91,6 +94,7 @@ export default function (state, action) {
 			nodes = state.graph.nodes.map(node => node.nid === action.node.nid
 				? {...action.node}
 				: {...node});
+			nodes = Lib.parseAllNames(nodes);
 			return {
 				...state,
 				graph: {

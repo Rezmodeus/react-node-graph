@@ -40,6 +40,47 @@ export default {
 				text
 			}
 		};
+	},
+
+	setOutText(nodes, nodeObj, index, text) {
+		const outs = [...nodeObj.fields.out];
+		outs[index] = {
+			...nodeObj.fields.out[index],
+			str: this.parseText(nodes, text),
+			strRaw: text
+		};
+		return {
+			...nodeObj,
+			fields: {
+				...nodeObj.fields,
+				out: [...outs]
+			}
+		};
+	},
+
+	parseAllNames(graphNodes){
+		let nodes = JSON.parse(JSON.stringify(graphNodes));
+		nodes = nodes.map(node => {
+			const type = this.parseText(nodes, node.type);
+			const outs = node.fields.out.map(out => {
+				const str = this.parseText(nodes, out.strRaw);
+				return {
+					...out,
+					str
+				};
+			});
+
+			return {
+				...node,
+				type,
+				fields: {
+					...node.fields,
+					out:[...outs]
+				}
+			}
+		});
+		return nodes;
+
 	}
 
 }

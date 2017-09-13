@@ -7,12 +7,15 @@ const emptyGraph = {
 			'nid': 1,
 			'type': 'Start',
 			'contentType': 'quest',
+			data: {
+				test: 'Derp'
+			},
 			'x': 100,
 			'y': 100,
 			'fields': {
 				'in': [],
 				'out': [
-					{name: 'start', str: 'start'}
+					{name: 'start', str: 'start', strRaw:'start'}
 				]
 			}
 		}

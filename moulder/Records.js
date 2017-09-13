@@ -12,8 +12,8 @@ export default {
 		fields: {
 			in: [{name: '->'}],
 			out: [
-				{name: '1', str: 'some string'},
-				{name: '2', str: 'some other string'}
+				{name: '1', str: 'some string', strRaw:'some string'},
+				{name: '2', str: 'some other string', strRaw:'some other string'}
 			]
 		}
 	},
@@ -29,7 +29,7 @@ export default {
 		y: 0,
 		fields: {
 			in: [{name: '->'}],
-			out: [{name: '1', str: '->'}]
+			out: [{name: '1', str: '->', strRaw: '->'}]
 		}
 	},
 
@@ -45,8 +45,8 @@ export default {
 		fields: {
 			in: [{name: '->'}],
 			out: [
-				{name: '1', str: 'true value'},
-				{name: '2', str: 'false'}
+				{name: '1', str: 'true value', strRaw:'true value'},
+				{name: '2', str: 'false', strRaw:'false'}
 			]
 		}
 	},
@@ -117,7 +117,8 @@ export default {
 
 	choice: {
 		name: '',
-		str: 'test'
+		str: 'test',
+		rawStr: 'test'
 	}
 
 }

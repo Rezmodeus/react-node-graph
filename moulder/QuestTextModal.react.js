@@ -74,17 +74,7 @@ export class QuestTextModal extends Component {
 	}
 
 	onChangeChoiceText(index, e) {
-		const outs = [...this.state.nodeObj.fields.out];
-		outs[index].str = e.target.value;
-		this.setState({
-			nodeObj: {
-				...this.state.nodeObj,
-				fields: {
-					...this.state.nodeObj.fields,
-					out: [...outs]
-				}
-			}
-		});
+		this.setState({nodeObj: Lib.setOutText(this.props.nodes, this.state.nodeObj, index, e.target.value)});
 	}
 
 	moveChoice(index, direction) {
@@ -122,20 +112,20 @@ export class QuestTextModal extends Component {
 	}
 
 	render() {
-		// console.log(this.state.nodeObj.fields.out);
 		const outFields = this.state.nodeObj.fields.out.map((out, index) => {
 			const upEnabled = index > 0;
 			const downEnabled = index < this.state.nodeObj.fields.out.length - 1;
 			const deleteEnabled = this.state.connectedChoices.indexOf(out.name) === -1;
 			return (<FormGroup key={out.name} controlId="formInlineName">
 				<Col sm={8}>
+					<ControlLabel>Text: {out.str}</ControlLabel>
 					<FormControl type="text" placeholder="Choice"
 					             onChange={(event) => this.onChangeChoiceText(index, event)}
-					             value={out.str}
+					             value={out.strRaw}
 					/>
 				</Col>
 				<Col sm={4}>
-					<ButtonToolbar>
+					<ButtonToolbar className="choice-button-group">
 						<Button disabled={!upEnabled} bsStyle="primary" bsSize="xsmall" title="up"
 						        onClick={() => this.moveChoice(index, -1)}>up</Button>
 						<Button disabled={!downEnabled} bsStyle="primary" bsSize="xsmall" title="something"
