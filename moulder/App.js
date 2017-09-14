@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from './Actions';
-import {Button} from 'react-bootstrap';
+import {Button, ButtonGroup, DropdownButton, MenuItem} from 'react-bootstrap';
 import NodeGraph from './NodeGraph.react'
 import NodeEdit from './NodeEdit.react'
 
@@ -23,7 +23,9 @@ export class App extends Component {
 	}
 
 	showModal() {
-		this.setState({showModal: true});
+		if(this.props.selectedNode !== -1){
+			this.setState({showModal: true});
+		}
 	}
 
 	hideModal() {
@@ -74,28 +76,30 @@ export class App extends Component {
 
 		return (
 			<div>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('questText')}>new QuestText</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('response')}>new Response</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('condition')}>new Condition</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('entity')}>new Entity</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('npc')}>new Npc</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('item')}>new Item</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.props.addNewNode('location')}>new Location</Button>
-				<Button bsStyle="success" bsSize="xsmall" title="addNewNode"
-				        onClick={() => this.showModal()}>edit node</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
-				        onClick={() => this.saveToLocalStorage()}>save</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
-				        onClick={() => this.clearState()}>clear</Button>
-				<Button bsStyle="primary" bsSize="xsmall" title="editButton"
-				        onClick={() => this.getFromLocalStorage()}>load</Button>
+				<ButtonGroup vertical>
+
+					<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+					        onClick={() => this.props.addNewNode('questText')}>QuestText</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+					        onClick={() => this.props.addNewNode('response')}>Response</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+					        onClick={() => this.props.addNewNode('condition')}>Condition</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
+					        onClick={() => this.props.addNewNode('action')}>Action</Button>
+					<DropdownButton bsStyle="primary" bsSize="xsmall" title="Entities" id="bg-vertical-dropdown-1"
+					                onSelect={(key) => this.props.addNewNode(key)}>
+						<MenuItem eventKey="entity">Entity</MenuItem>
+						<MenuItem eventKey="item">Item</MenuItem>
+						<MenuItem eventKey="npc">Npc</MenuItem>
+						<MenuItem eventKey="location">Location</MenuItem>
+					</DropdownButton>
+					<Button bsStyle="success" bsSize="xsmall" title="addNewNode"
+					        onClick={() => this.showModal()}>edit node</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="editButton"
+					        onClick={() => this.saveToLocalStorage()}>save</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="editButton"
+					        onClick={() => this.getFromLocalStorage()}>load</Button>
+				</ButtonGroup>
 				{this.state.showModal
 					? <NodeEdit {...nodeEditPayload}/>
 					: null}

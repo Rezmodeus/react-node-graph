@@ -22,6 +22,9 @@ export default class NodeEdit extends Component {
 			case 'condition':
 				modal = <ConditionModal {...this.props}/>;
 				break;
+			case 'action':
+				modal = <ResponseModal {...this.props}/>;
+				break;
 			case 'entity':
 				modal = <EntityModal {...this.props}/>;
 				break;

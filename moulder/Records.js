@@ -33,6 +33,21 @@ export default {
 		}
 	},
 
+	action: {
+		nid: 0,
+		type: '',
+		contentType: '',
+		data: {
+			text: ''
+		},
+		x: 0,
+		y: 0,
+		fields: {
+			in: [{name: '->'}],
+			out: [{name: '1', str: '->', strRaw: '->'}]
+		}
+	},
+
 	condition: {
 		nid: 0,
 		type: '',

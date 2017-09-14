@@ -59,7 +59,7 @@ export class ResponseModal extends Component {
 			<Modal className="edit-modal" show={true}
 			       onHide={() => this.hideModal()}>
 				<Modal.Header>
-					<Modal.Title>Response node {this.props.selectedNode}</Modal.Title>
+					<Modal.Title>{this.state.nodeObj.contentType} node {this.props.selectedNode}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<form>
