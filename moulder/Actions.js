@@ -79,7 +79,13 @@ export default {
 			type: Constants.MOVE_ALL_NODES,
 			pos
 		}
+	},
 
+	setView(view) {
+		return {
+			type: Constants.SET_VIEW,
+			view
+		}
 	}
 }
 

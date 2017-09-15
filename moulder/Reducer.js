@@ -132,6 +132,13 @@ export default function (state, action) {
 				}
 			};
 
+		case Constants.SET_VIEW:
+			return {
+				...state,
+				view: action.view
+
+			};
+
 		default:
 			return state;
 

@@ -23,6 +23,7 @@ const emptyGraph = {
 	connections: []
 };
 export default {
+	view:'graph',
 
 	selectedNode: -1,
 	nodeKey: 2,
