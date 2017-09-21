@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Actions from './Actions';
-import {Button, ButtonGroup, DropdownButton, MenuItem} from 'react-bootstrap';
-import NodeGraph from './NodeGraph.react'
-import NodeEdit from './NodeEdit.react'
+import Actions from '../Actions';
+import {Button, ButtonGroup, DropdownButton, MenuItem, Col, Well} from 'react-bootstrap';
+import NodeGraph from '../NodeGraph.react'
+import NodeEdit from '../NodeEdit.react'
 
 
-export class PlayerView extends Component {
+export class QuestPlayer extends Component {
 
 	constructor(props) {
 		super(props);
@@ -18,10 +18,15 @@ export class PlayerView extends Component {
 	render() {
 		return (
 			<div>
+				<Col sm={1}>
 				<ButtonGroup vertical>
 
-					<Button bsStyle="primary" bsSize="xsmall" title="toGraph"
+					<Button bsStyle="warning" bsSize="xsmall" title="toGraph"
 					        onClick={() => this.props.setView('graph')}>Graph view</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="play"
+					        onClick={() => console.log()}>play</Button>
+					<Button bsStyle="primary" bsSize="xsmall" title="stop"
+					        onClick={() => console.log()}>stop</Button>
 					<DropdownButton bsStyle="primary" bsSize="xsmall" title="menu" id="bg-vertical-dropdown-1"
 					                onSelect={(key) => console.log('menuClick', key)}>
 						<MenuItem eventKey="1">Item1</MenuItem>
@@ -30,6 +35,14 @@ export class PlayerView extends Component {
 						<MenuItem eventKey="4">Item4</MenuItem>
 					</DropdownButton>
 				</ButtonGroup>
+				</Col>
+				<Col sm={4}>
+					<Well>Look I'm in a well!</Well>
+				</Col>
+				<Col sm={7}>
+					<Button bsStyle="primary" bsSize="xsmall" title="toGraph">col7</Button>
+				</Col>
+
 			</div>
 		);
 	}
@@ -46,6 +59,6 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerView );
+export default connect(mapStateToProps, mapDispatchToProps)(QuestPlayer);
 
 

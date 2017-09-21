@@ -81,6 +81,18 @@ export default {
 		});
 		return nodes;
 
+	},
+
+	// TODO: test it
+	getChild(nid,outIndex,graph){
+		const parent = graph.nodes.find(node => node.nid === nid);
+		if(!parent || parent.out.length===0 || !parent.out[outIndex]){
+			return null;
+		}
+		const parentOutName = parent.out[outIndex].name;
+		const connection = graph.connections.find( con => con.fromNode === nid && con.from === parentOutName);
+		return !connection ? null : connection.to_node;
+
 	}
 
 }

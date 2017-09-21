@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import GraphView from './GraphView.react'
-import PlayerView from './PlayerView.react'
+import QuestPlayer from './player/QuestPlayer.react'
 
 
 export class App extends Component {
@@ -19,7 +19,7 @@ export class App extends Component {
 				view = <GraphView/>;
 				break;
 			case 'player':
-				view = <PlayerView/>;
+				view = <QuestPlayer/>;
 				break;
 		}
 

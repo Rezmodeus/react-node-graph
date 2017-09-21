@@ -78,6 +78,8 @@ export class GraphView extends Component {
 			<div>
 				<ButtonGroup vertical>
 
+					<Button bsStyle="warning" bsSize="xsmall" title="player"
+					        onClick={() => this.props.setView('player')}>Player view</Button>
 					<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
 					        onClick={() => this.props.addNewNode('questText')}>QuestText</Button>
 					<Button bsStyle="primary" bsSize="xsmall" title="addNewNode"
@@ -99,8 +101,6 @@ export class GraphView extends Component {
 					        onClick={() => this.saveToLocalStorage()}>save</Button>
 					<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 					        onClick={() => this.getFromLocalStorage()}>load</Button>
-					<Button bsStyle="warning" bsSize="xsmall" title="player"
-					        onClick={() => this.props.setView('player')}>Player view</Button>
 				</ButtonGroup>
 				{this.state.showModal
 					? <NodeEdit {...nodeEditPayload}/>
