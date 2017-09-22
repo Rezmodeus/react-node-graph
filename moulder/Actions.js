@@ -86,6 +86,13 @@ export default {
 			type: Constants.SET_VIEW,
 			view
 		}
+	},
+
+	stepByChoice(outIndex) {
+		return {
+			type: Constants.STEP_BY_CHOICE,
+			outIndex
+		}
 	}
 }
 

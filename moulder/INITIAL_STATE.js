@@ -15,7 +15,7 @@ const emptyGraph = {
 			'fields': {
 				'in': [],
 				'out': [
-					{name: 'start', str: 'start', strRaw:'start'}
+					{name: 'start', str: 'start', strRaw: 'start'}
 				]
 			}
 		}
@@ -23,7 +23,8 @@ const emptyGraph = {
 	connections: []
 };
 export default {
-	view:'graph',
+	view: 'graph',
+	questPlayerCurrentNid: 2,
 
 	selectedNode: -1,
 	nodeKey: 2,

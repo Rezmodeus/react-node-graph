@@ -58,7 +58,7 @@ export default {
 		};
 	},
 
-	parseAllNames(graphNodes){
+	parseAllNames(graphNodes) {
 		let nodes = JSON.parse(JSON.stringify(graphNodes));
 		nodes = nodes.map(node => {
 			const type = this.parseText(nodes, node.type);
@@ -75,7 +75,7 @@ export default {
 				type,
 				fields: {
 					...node.fields,
-					out:[...outs]
+					out: [...outs]
 				}
 			}
 		});
@@ -84,13 +84,13 @@ export default {
 	},
 
 	// TODO: test it
-	getChild(nid,outIndex,graph){
+	stepByChoice(nid, outIndex, graph) {
 		const parent = graph.nodes.find(node => node.nid === nid);
-		if(!parent || parent.out.length===0 || !parent.out[outIndex]){
+		if (!parent || parent.out.length === 0 || !parent.out[outIndex]) {
 			return null;
 		}
 		const parentOutName = parent.out[outIndex].name;
-		const connection = graph.connections.find( con => con.fromNode === nid && con.from === parentOutName);
+		const connection = graph.connections.find(con => con.fromNode === nid && con.from === parentOutName);
 		return !connection ? null : connection.to_node;
 
 	}

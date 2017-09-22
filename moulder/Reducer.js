@@ -139,6 +139,14 @@ export default function (state, action) {
 
 			};
 
+		case Constants.STEP_BY_CHOICE:
+			const questPlayerCurrentNid = Lib.stepByChoice(state.questPlayerCurrentNid, action.outIndex, state.graph) || state.questPlayerCurrentNid;
+			return {
+				...state,
+				questPlayerCurrentNid
+
+			};
+
 		default:
 			return state;
 
