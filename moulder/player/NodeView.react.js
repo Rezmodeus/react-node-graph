@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from '../Actions';
-import {Button, ButtonGroup, DropdownButton, MenuItem, Col, Well} from 'react-bootstrap';
-import NodeGraph from '../NodeGraph.react'
-import NodeEdit from '../NodeEdit.react'
-
+import {Well} from 'react-bootstrap';
 
 export class NodeView extends Component {
 
@@ -17,7 +14,7 @@ export class NodeView extends Component {
 	render() {
 		return (
 			<div>
-
+				<Well>NodeView</Well>
 			</div>
 		);
 	}

@@ -17,7 +17,7 @@ export class GameStateView extends Component {
 	render() {
 		return (
 			<div>
-
+				<Well>GameStateView</Well>
 			</div>
 		);
 	}

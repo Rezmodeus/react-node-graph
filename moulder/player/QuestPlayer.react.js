@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Actions from '../Actions';
 import {Button, ButtonGroup, DropdownButton, MenuItem, Col, Well} from 'react-bootstrap';
-import NodeGraph from '../NodeGraph.react'
-import NodeEdit from '../NodeEdit.react'
+import NodeView from '../player/NodeView.react'
+import EntitiesView from '../player/EntitiesView.react'
+import GameStateView from '../player/GameStateView.react'
+import {NodeGraph} from "../NodeGraph.react";
 
 
 export class QuestPlayer extends Component {
@@ -36,11 +38,14 @@ export class QuestPlayer extends Component {
 					</DropdownButton>
 				</ButtonGroup>
 				</Col>
-				<Col sm={4}>
-					<Well>Look I'm in a well!</Well>
+				<Col sm={3}>
+					<NodeView/>
 				</Col>
-				<Col sm={7}>
-					<Button bsStyle="primary" bsSize="xsmall" title="toGraph">col7</Button>
+				<Col sm={5}>
+					<EntitiesView/>
+				</Col>
+				<Col sm={3}>
+				<GameStateView/>
 				</Col>
 
 			</div>

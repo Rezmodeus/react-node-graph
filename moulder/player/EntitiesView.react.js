@@ -17,7 +17,7 @@ export class EntitiesView extends Component {
 	render() {
 		return (
 			<div>
-
+				<Well>EntitiesView</Well>
 			</div>
 		);
 	}
