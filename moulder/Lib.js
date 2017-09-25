@@ -86,11 +86,13 @@ export default {
 	// TODO: test it
 	stepByChoice(nid, outIndex, graph) {
 		const parent = graph.nodes.find(node => node.nid === nid);
-		if (!parent || parent.out.length === 0 || !parent.out[outIndex]) {
-			return null;
+		if (!parent || parent.fields.out.length === 0 || !parent.fields.out[outIndex]) {
+			return nid;
 		}
-		const parentOutName = parent.out[outIndex].name;
-		const connection = graph.connections.find(con => con.fromNode === nid && con.from === parentOutName);
+		const out = parent.fields.out;
+
+		const parentOutName = out[outIndex].name;
+		const connection = graph.connections.find(con => con.from_node === nid && con.from === parentOutName);
 		return !connection ? null : connection.to_node;
 
 	}

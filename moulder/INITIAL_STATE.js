@@ -24,7 +24,7 @@ const emptyGraph = {
 };
 export default {
 	view: 'graph',
-	questPlayerCurrentNid: 2,
+	questPlayerCurrentNid: 1,
 
 	selectedNode: -1,
 	nodeKey: 2,

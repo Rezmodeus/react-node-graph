@@ -11,19 +11,18 @@ export class NodeView extends Component {
 	}
 
 	onClick(index) {
-		console.log('click',index);
+		console.log('click', index);
+		this.props.stepByChoice(index);
 
 	}
 
 	render() {
-		const node = this.props.nodes.find(n =>n.nid === this.props.questPlayerCurrentNid);
-		if(!node) {
+		const node = this.props.nodes.find(n => n.nid === this.props.questPlayerCurrentNid);
+		if (!node) {
 			return (<Well>no node with nid:{this.props.questPlayerCurrentNid}</Well>);
 		}
-		if(node.contentType !== 'questText'){
-			return (<Well>no questText node, nid:{this.props.questPlayerCurrentNid}</Well>);
-		}
-		const choices = node.fields.out.map((out,index) => <ListGroupItem key={out.str} onClick={() => this.onClick(index)}>{out.str}</ListGroupItem>);
+		const choices = node.fields.out.map((out, index) => <ListGroupItem key={out.str}
+		                                                                   onClick={() => this.onClick(index)}>{out.str}</ListGroupItem>);
 		return (
 			<div>
 				<Well>
@@ -47,7 +46,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return {};
+	return {
+		stepByChoice: (outIndex) => dispatch(Actions.stepByChoice(outIndex))
+
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NodeView);
