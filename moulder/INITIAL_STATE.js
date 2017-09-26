@@ -25,6 +25,7 @@ const emptyGraph = {
 export default {
 	view: 'graph',
 	questPlayerCurrentNid: 1,
+	nodeHistory: [],
 
 	selectedNode: -1,
 	nodeKey: 2,

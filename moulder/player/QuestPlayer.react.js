@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import Actions from '../Actions';
 import {Button, ButtonGroup, DropdownButton, MenuItem, Col, Well} from 'react-bootstrap';
 import NodeView from '../player/NodeView.react'
-import EntitiesView from '../player/EntitiesView.react'
-import GameStateView from '../player/GameStateView.react'
+import EntitiesView from './EntitiesView.react'
+import GameStateView from './GameStateView.react'
+import NodeHistory from './NodeHistory.react'
 import {NodeGraph} from "../NodeGraph.react";
 
 
@@ -33,18 +34,22 @@ export class QuestPlayer extends Component {
 		this.props.setState({graph: {nodes: [], connections: []}});
 	}
 
+	rewind() {
+
+	}
+
+
 	render() {
 		return (
 			<div>
+				<NodeHistory/>
 				<Col sm={1}>
 					<ButtonGroup vertical>
 
 						<Button bsStyle="warning" bsSize="xsmall" title="toGraph"
 						        onClick={() => this.props.setView('graph')}>Graph view</Button>
-						<Button bsStyle="primary" bsSize="xsmall" title="play"
-						        onClick={() => console.log()}>play</Button>
-						<Button bsStyle="primary" bsSize="xsmall" title="stop"
-						        onClick={() => console.log()}>stop</Button>
+						<Button bsStyle="primary" bsSize="xsmall" title="rewind"
+						        onClick={() => console.log()}>rewind</Button>
 						<Button bsStyle="primary" bsSize="xsmall" title="editButton"
 						        onClick={() => this.saveToLocalStorage()}>save</Button>
 						<Button bsStyle="primary" bsSize="xsmall" title="editButton"
@@ -75,7 +80,9 @@ export class QuestPlayer extends Component {
 }
 
 function mapStateToProps(state) {
-	return {};
+	return {
+		allState: state
+	};
 }
 
 function mapDispatchToProps(dispatch) {

@@ -93,6 +93,14 @@ export default {
 			type: Constants.STEP_BY_CHOICE,
 			outIndex
 		}
+	},
+
+	goToHistoryNode(index) {
+		return {
+			type: Constants.GO_TO_HISTORY_NODE,
+			index
+		}
+
 	}
 }
 

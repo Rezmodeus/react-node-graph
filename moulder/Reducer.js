@@ -5,6 +5,9 @@ import Lib from './Lib';
 export default function (state, action) {
 	let connections;
 	let nodes;
+	let questPlayerCurrentNid;
+	let nodeHistory;
+
 	switch (action.type) {
 		case Constants.SET_GRAPH:
 			return {
@@ -133,18 +136,41 @@ export default function (state, action) {
 			};
 
 		case Constants.SET_VIEW:
+			questPlayerCurrentNid = action.view === 'player'
+				? 1
+				: state.questPlayerCurrentNid;
+
+			nodeHistory = action.view === 'player'
+				? []
+				: state.nodeHistory;
 			return {
 				...state,
+				questPlayerCurrentNid,
+				nodeHistory,
 				view: action.view
 
 			};
 
 		case Constants.STEP_BY_CHOICE:
-			const questPlayerCurrentNid = Lib.stepByChoice(state.questPlayerCurrentNid, action.outIndex, state.graph) || state.questPlayerCurrentNid;
+			questPlayerCurrentNid = Lib.stepByChoice(state.questPlayerCurrentNid, action.outIndex, state.graph) || state.questPlayerCurrentNid;
+			nodeHistory = questPlayerCurrentNid !== state.questPlayerCurrentNid
+				? state.nodeHistory.concat([questPlayerCurrentNid])
+				: state.nodeHistory;
 			return {
 				...state,
+				nodeHistory,
 				questPlayerCurrentNid
 
+			};
+
+		case Constants.GO_TO_HISTORY_NODE:
+			questPlayerCurrentNid = state.nodeHistory[action.index];
+			nodeHistory = state.nodeHistory
+				.slice(0, action.index + 1);
+			return {
+				...state,
+				nodeHistory,
+				questPlayerCurrentNid
 			};
 
 		default:
